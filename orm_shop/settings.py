@@ -16,6 +16,7 @@ from pathlib import Path
 config = configparser.ConfigParser()
 config.read("settings.ini", encoding="utf-8-sig")
 
+
 DB_NAME = config["parameters"]["DB_NAME"]
 DB_USER = config["parameters"]["DB_USER"]
 DB_PASSWORD = config["parameters"]["DB_PASSWORD"]
@@ -25,6 +26,7 @@ DB_PORT = int(config["parameters"]["DB_PORT"])
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+LOGIN_URL = '/admin/login/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/

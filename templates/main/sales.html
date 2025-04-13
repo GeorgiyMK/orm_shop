@@ -1,35 +1,41 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}{{ car.model }}{% endblock title %}
+
+{% block title %}Все продажи{% endblock %}
+
 {% block content %}
-  <div class="container">
-			<div class="text-center">
-				<h1>{{ car.model }} {{ car.year }}</h1>
-				<br>
-      </div>
-  </div>
-  <table class="table table-hover">
-    <thead class="thead-light">
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Все продажи</h1>
+
+  <table class="table table-bordered table-striped text-center">
+    <thead class="table-light">
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">Фамилия</th>
-        <th scope="col">Имя</th>
-        <th scope="col">Отчество</th>
-        <th scope="col">Номер телефона</th>
-        <th scope="col">Дата продажи</th>
+        <th>#</th>
+        <th>Фамилия</th>
+        <th>Имя</th>
+        <th>Отчество</th>
+        <th>Телефон</th>
+        <th>Автомобиль</th>
+        <th>Дата продажи</th>
       </tr>
     </thead>
     <tbody>
       {% for sale in sales %}
         <tr>
-          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{ forloop.counter }}</td>
           <td>{{ sale.client.last_name }}</td>
           <td>{{ sale.client.name }}</td>
           <td>{{ sale.client.middle_name }}</td>
           <td>{{ sale.client.phone_number }}</td>
-          <td>{{ sale.created_at|date:"d/m/Y" }} {{ sale.created_at|time:"H:i" }}</td>
+          <td>{{ sale.car.model }} ({{ sale.car.year|date:"Y" }})</td>
+          <td>{{ sale.created_at|date:"d.m.Y" }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="7">Продаж пока нет.</td>
         </tr>
       {% endfor %}
     </tbody>
   </table>
-{% endblock content %}
+</div>
+{% endblock %}

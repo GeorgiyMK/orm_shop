@@ -1,9 +1,7 @@
 import configparser
 
 from django.db import models
-
-
-
+from django.db.models import ForeignKey
 
 
 class Client(models.Model):
@@ -51,8 +49,26 @@ DRIVE_UNIT_CHOICES = (
 
 
 class Car(models.Model):
-    pass  # реализуйте модель
+    id = models.AutoField(primary_key=True) # Не обязательно ?
+    model = models.CharField(max_length=50)
+    year = models.DateField()
+    color = models.CharField(max_length=30)
+    mileage = models.IntegerField()
+    volume = models.IntegerField()
+    body_type = models.CharField(max_length=20, choices=BODY_TYPE_CHOICES)
+    drive_unit = models.CharField(max_length=20, choices=DRIVE_UNIT_CHOICES)
+    gearbox = models.CharField(max_length=20, choices=GEARBOX_CHOICES)
+    fuel_type = models.CharField(max_length=20, choices=FUEL_TYPE_CHOICES)
+    price = models.IntegerField()
+    image = models.ImageField(upload_to='images/', blank=True, null=True)
+    def __str__(self):
+        return f'{self.model}'
 
 
 class Sale(models.Model):
-    pass  # реализуйте модель
+    id = models.AutoField(primary_key=True)  # Не обязательно ?
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    created_at = models.DateField(auto_now_add=True)
+    def __str__(self):
+        return f'{self.client}, {self.car}'
